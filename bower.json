@@ -1,0 +1,22 @@
+{
+  "name": "angular-demo-zw",
+  "homepage": "https://github.com/zhouwei27/angular-demo-zw",
+  "authors": [
+    "周薇-20670 <wei.zhou05@hand-china.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.7.4",
+    "angular-ui-router": "ui-router#^1.0.20"
+  }
+}

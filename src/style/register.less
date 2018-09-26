@@ -1,0 +1,95 @@
+.register{
+    background-image: url(../image/background.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    form{
+        .mt(55);
+        .form-line{
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: content-box;
+            .w(300);
+            .h(40);
+            .lh(40);
+            font-size: 0;
+            color: @defaultColor;
+            &:first-child{
+                border-bottom: 1px solid @defaultColor;
+            }
+            input{ 
+                border-width: 0;
+                outline-width: 0;
+                height: 100%;
+                .w(245);
+                .fs(14);
+                .pl(30);
+                box-sizing: border-box;
+                &::-webkit-input-placeholder{
+                    color: @defaultColor;
+                }
+                background-color: @formBgColor;
+            }
+            span{
+                background-position: 17px 10px;
+                background-color: @iconBgColor;
+                .w(55);
+                height: 100%;
+                background-repeat: no-repeat; 
+            }
+            .account{
+                background-image: url(../image/account.png);     
+            }
+            .lock{
+                background-image: url(../image/lock.png);
+            }
+        }
+        .message-wrap{
+            .mt(40);
+            .w(300);
+            margin-left: auto;
+            margin-right: auto;
+            .message-box{
+                border-width: 0;
+                outline-width: 0;
+                box-sizing: border-box;
+                background-color: @formBgColor;
+                .w(190);
+                .h(40);
+                .fs(14);
+                .pl(30);
+                &::-webkit-input-placeholder{
+                    color: @defaultColor;
+                }
+            }
+            .message{
+                .fs(14);
+                color: @headBgColor;
+                border: 1px solid @headBgColor;
+                padding: 0 5px;
+                margin-top: 18px;
+            }
+        }
+        button{
+            .w(300);
+            .h(35);
+            font-size: 22px;
+            font-weight: bold;
+            &.login-btn{
+                margin-top: 60px;
+                background-color: @headBgColor;
+                color: @defaultColor;
+            }
+            &.register-btn{
+                margin-top: 20px;
+                background-color: @btnBgColor;
+                color: @headBgColor;
+                border: 1px solid @headBgColor;
+            }
+        }
+    }
+}

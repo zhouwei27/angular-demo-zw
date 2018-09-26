@@ -33,6 +33,26 @@ angular.module('app').config(['$stateProvider','$urlRouterProvider',function($st
         url: '/search',
         templateUrl: 'view/search.html',
         controller: 'searchCtrl'
+    }).state('login',{
+        url: '/login',
+        templateUrl: 'view/login.html',
+        controller: 'loginCtrl'
+    }).state('register',{
+        url: '/register',
+        templateUrl: 'view/register.html',
+        controller: 'registerCtrl'
+    }).state('me',{
+        url: '/me',
+        templateUrl: 'view/me.html',
+        controller: 'meCtrl'
+    }).state('post',{
+        url: '/post',
+        templateUrl: 'view/post.html',
+        controller: 'postCtrl'
+    }).state('favorite',{
+        url: '/favorite',
+        templateUrl: 'view/favorite.html',
+        controller: 'favoriteCtrl'
     });
     $urlRouterProvider.otherwise('main');
 }])
@@ -47,10 +67,22 @@ angular.module('app').controller('companyCtrl',['$http','$state','$scope',functi
 }]);
 'use strict';
 
+angular.module('app').controller('favoriteCtrl',['$http','$scope',function($http,$scope){
+}]);
+'use strict';
+
+angular.module('app').controller('loginCtrl',['$http','$scope',function($http,$scope){
+}]);
+'use strict';
+
 angular.module('app').controller('mainCtrl',['$http','$scope',function($http,$scope){
     $http.get('data/positionList.json').then(function(resp){
         $scope.list = resp.data;
     })
+}]);
+'use strict';
+
+angular.module('app').controller('meCtrl',['$http','$scope',function($http,$scope){
 }]);
 'use strict';
 
@@ -75,6 +107,24 @@ angular.module('app').controller('positionCtrl',['$q','$http','$scope','$state',
   getPosition().then(function(obj){
     getCompany(obj.companyId);
   })
+}]);
+'use strict';
+
+angular.module('app').controller('postCtrl',['$http','$scope',function($http,$scope){
+    $scope.tabList = [{
+        id: 'all',
+        name: '全部'
+    },{
+        id: 'pass',
+        name: '面试邀请'
+    },{
+        id: 'fail',
+        name: '不合适'
+    }]
+}]);
+'use strict';
+
+angular.module('app').controller('registerCtrl',['$http','$scope',function($http,$scope){
 }]);
 'use strict';
 

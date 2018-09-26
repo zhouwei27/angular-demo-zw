@@ -259,6 +259,7 @@
   position: fixed;
   left: 0;
   right: 0;
+  top: 0;
   height: 1.06666667rem;
   line-height: 1.06666667rem;
 }
@@ -289,6 +290,9 @@
   background-position: 0 4px;
   padding-left: 20px;
   margin-left: 10px;
+}
+.search-list {
+  margin-top: 2.13333333rem;
 }
 html,
 body {

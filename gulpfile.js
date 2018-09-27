@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var $ = require('gulp-load-plugins')();
+var $ = require('gulp-load-plugins')();//自动加载package.json文件里的gulp插件,gulp-load-plugins并不会一开始就加载所有package.json里的gulp插件，而是在我们需要用到某个插件的时候，才去加载那个插件
 var open = require('open');
 
 var app = {
@@ -10,10 +10,10 @@ var app = {
 
 gulp.task('lib',function(){
     gulp.src('bower_components/**/*.js')
-    .pipe($.plumber())
+    .pipe($.plumber()) //防止抛出错误后程序异常关闭  设置后只会提示错误信息不会关闭程序
     .pipe(gulp.dest(app.devPath + 'vendor'))
     .pipe(gulp.dest(app.prdPath + 'vendor'))
-    .pipe($.connect.reload());
+    .pipe($.connect.reload());//实现网页自动刷新加载
 });
 
 gulp.task('html',function(){

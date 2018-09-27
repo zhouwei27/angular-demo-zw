@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app',['ui.router','ngCookies','validation']);
+angular.module('app',['ui.router','ngCookies','validation','ngAnimate']);
 'use strict';
 
 angular.module('app').value('dict',{}).run(['dict','$http',function(dict,$http){
@@ -120,6 +120,9 @@ angular.module('app').controller('companyCtrl',['$http','$state','$scope',functi
 'use strict';
 
 angular.module('app').controller('favoriteCtrl',['$http','$scope',function($http,$scope){
+    $http.get('data/myFavorite.json').then(function(resp){
+        $scope.list = resp.data;
+    });
 }]);
 'use strict';
 
@@ -156,13 +159,17 @@ angular.module('app').controller('meCtrl',['$http','$scope','cache','$state',fun
 }]);
 'use strict';
 
-angular.module('app').controller('positionCtrl',['$q','$http','$scope','$state','cache',function($q,$http,$scope,$state,cache){
+angular.module('app').controller('positionCtrl',['$log','$q','$http','$scope','$state','cache',function($log,$q,$http,$scope,$state,cache){
   // cache.remove('to');
-  $scope.isLogin = false;
+  $scope.isLogin = !!cache.get('name');
+  $scope.message = $scope.isLogin?'投个简历':'去登录';
   function getPosition () {
     var def = $q.defer();//创建一个延迟加载对象
     $http.get('data/position.json?id='+$state.params.id).then(function(resp){
         $scope.position = resp.data;
+        if(resp.posted){
+          $scope.message = '已投递';
+        }
         def.resolve(resp);
     }).catch(function(err){
         def.reject(err);
@@ -177,6 +184,21 @@ angular.module('app').controller('positionCtrl',['$q','$http','$scope','$state',
   getPosition().then(function(obj){
     getCompany(obj.companyId);
   })
+  $scope.go = function(){
+    if($scope.message !== '已投递'){
+      if($scope.isLogin){
+        $http.post('data/handle.json',{
+          id: $scope.position.id
+        }).success(function(resp){
+          $log.info(resp);
+          $scope.message = '已投递';
+        });
+      }
+      else{
+        $state.go('login');
+      }
+    }
+  }
 }]);
 'use strict';
 
@@ -314,11 +336,14 @@ angular.module('app').directive('appFoot',[function(){
     };
 }]);
 'use strict';
-angular.module('app').directive('appHead',[function(){
+angular.module('app').directive('appHead',['cache',function(cache){
     return{
         restrict: 'A',
         replace: true,
-        templateUrl: 'view/template/head.html'
+        templateUrl: 'view/template/head.html',
+        link: function($scope){
+            $scope.name = cache.get('name') || '' ;
+        }
     };
 }]);
 'use strict';
@@ -362,7 +387,7 @@ angular.module('app').directive('appPositionClass',[function(){
 }]);
 'use strict';
 
-angular.module('app').directive('appPositionInfo',[function(){
+angular.module('app').directive('appPositionInfo',['$http',function($http){
     return{
         restrict: 'A',
         replace: true,
@@ -373,13 +398,27 @@ angular.module('app').directive('appPositionInfo',[function(){
             pos: '='
         },
         link: function($scope){
-            $scope.imagePath = $scope.isActive ? 'image/star-active.jpg' : 'image/star.jpg';
+            $scope.$watch('pos',function(newVal){
+                if(newVal){
+                    $scope.pos.select = $scope.pos.select || false;
+                    $scope.imagePath = $scope.pos.select ? 'image/star-active.png' : 'image/star.png';
+                }
+            });
+            $scope.favorite = function(){
+                $http.post('data/favorite.json',{
+                    id: $scope.pos.id,
+                    select: $scope.pos.select
+                }).success(function(resp){
+                    $scope.pos.select = !$scope.pos.select;
+                    $scope.imagePath = $scope.pos.select ? 'image/star-active.png' : 'image/star.png';
+                });
+            };
         }
     }
 }]);
 'use strict';
 
-angular.module('app').directive('appPositionList',[function(){
+angular.module('app').directive('appPositionList',['$http',function($http){
     return{
         restrict: 'A',
         replace: true,
@@ -387,8 +426,19 @@ angular.module('app').directive('appPositionList',[function(){
         //表示当前scope与控制器的scope是共享的
         scope: {
             data: '=',
-            filterObj: '='
-        }//接口
+            filterObj: '=',
+            isFavorite: '='
+        },//接口
+        link: function($scope){
+            $scope.select = function(item){
+                $http.post('data/favorite.json',{
+                    id: item.id,
+                    select: !item.select
+                }).success(function(resp){
+                    item.select = !item.select;
+                });
+            };
+        }
     };
 }]);
 'use strict';

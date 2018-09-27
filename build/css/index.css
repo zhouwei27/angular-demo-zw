@@ -307,6 +307,17 @@
 .login form {
   margin-top: 6.93333333rem;
 }
+.login form .ng-invalid + span {
+  position: absolute;
+  color: red;
+  right: 0;
+  height: 100%;
+  font-size: 12px;
+  text-align: right;
+}
+.login form .ng-invalid + span p {
+  margin: 0;
+}
 .login form .form-line {
   margin-left: auto;
   margin-right: auto;
@@ -328,12 +339,13 @@
   font-size: 0.37333333rem;
   padding-left: 0.8rem;
   box-sizing: border-box;
+  color: #fff;
   background-color: rgba(0, 0, 0, 0.2);
 }
 .login form .form-line input::-webkit-input-placeholder {
   color: #fff;
 }
-.login form .form-line span {
+.login form .form-line .icon {
   background-position: 17px 10px;
   background-color: rgba(0, 0, 0, 0.4);
   width: 1.46666667rem;
@@ -376,6 +388,17 @@
 .register form {
   margin-top: 1.46666667rem;
 }
+.register form .ng-invalid + span {
+  position: absolute;
+  color: red;
+  right: 0;
+  height: 100%;
+  font-size: 12px;
+  text-align: right;
+}
+.register form .ng-invalid + span p {
+  margin: 0;
+}
 .register form .form-line {
   margin-left: auto;
   margin-right: auto;
@@ -393,16 +416,17 @@
   border-width: 0;
   outline-width: 0;
   height: 100%;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.2);
   width: 6.53333333rem;
   font-size: 0.37333333rem;
   padding-left: 0.8rem;
   box-sizing: border-box;
-  background-color: rgba(0, 0, 0, 0.2);
 }
 .register form .form-line input::-webkit-input-placeholder {
   color: #fff;
 }
-.register form .form-line span {
+.register form .form-line span.icon {
   background-position: 17px 10px;
   background-color: rgba(0, 0, 0, 0.4);
   width: 1.46666667rem;
@@ -426,6 +450,7 @@
   outline-width: 0;
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
   width: 5.06666667rem;
   height: 1.06666667rem;
   font-size: 0.37333333rem;
@@ -440,6 +465,10 @@
   border: 1px solid #12d5b5;
   padding: 0 5px;
   margin-top: 18px;
+}
+.register form .message-wrap .message.disabled {
+  color: #d4d4d4;
+  border-color: #d4d4d4;
 }
 .register form button {
   width: 8rem;
@@ -466,6 +495,13 @@
 .me .name {
   margin-top: 0.66666667rem;
 }
+.me .login-btn {
+  background-color: #12d5b5;
+  color: #fff;
+  margin-top: 8rem;
+  width: 9.06666667rem;
+  height: 1.06666667rem;
+}
 .me .btns {
   margin-top: 1.06666667rem;
 }
@@ -483,6 +519,9 @@
   height: 1.06666667rem;
   margin-top: 0.53333333rem;
   background-color: red;
+}
+.my-post {
+  margin-top: 1.06666667rem;
 }
 html,
 body {

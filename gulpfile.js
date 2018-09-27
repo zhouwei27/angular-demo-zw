@@ -10,6 +10,7 @@ var app = {
 
 gulp.task('lib',function(){
     gulp.src('bower_components/**/*.js')
+    .pipe($.plumber())
     .pipe(gulp.dest(app.devPath + 'vendor'))
     .pipe(gulp.dest(app.prdPath + 'vendor'))
     .pipe($.connect.reload());
@@ -17,6 +18,7 @@ gulp.task('lib',function(){
 
 gulp.task('html',function(){
     gulp.src(app.srcPath + '**/*.html')
+    .pipe($.plumber())
     .pipe(gulp.dest(app.devPath))
     .pipe(gulp.dest(app.prdPath))
     .pipe($.connect.reload());
@@ -24,6 +26,7 @@ gulp.task('html',function(){
 
 gulp.task('json',function(){
     gulp.src(app.srcPath + 'data/**/*.json')
+    .pipe($.plumber())
     .pipe(gulp.dest(app.devPath + 'data'))
     .pipe(gulp.dest(app.prdPath + 'data'))
     .pipe($.connect.reload());
@@ -31,6 +34,7 @@ gulp.task('json',function(){
 
 gulp.task('less',function(){
     gulp.src(app.srcPath + 'style/index.less')
+    .pipe($.plumber())
     .pipe($.less())
     .pipe(gulp.dest(app.devPath + 'css'))
     .pipe($.cssmin())  //压缩
@@ -40,6 +44,7 @@ gulp.task('less',function(){
 
 gulp.task('js',function(){
     gulp.src(app.srcPath + 'script/**/*.js')
+    .pipe($.plumber())
     .pipe($.concat('index.js'))
     .pipe(gulp.dest(app.devPath + 'js'))
     .pipe($.uglify())  //压缩
@@ -49,6 +54,7 @@ gulp.task('js',function(){
 
 gulp.task('image',function(){
     gulp.src(app.srcPath + 'image/**/*')
+    .pipe($.plumber())
     .pipe(gulp.dest(app.devPath + 'image'))
     .pipe($.imagemin())  //压缩
     .pipe(gulp.dest(app.prdPath + 'image'))
